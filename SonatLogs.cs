@@ -222,14 +222,18 @@ namespace Sonat
 
         public string virtual_currency_name;
         public double value;
-        public double placement;
-
+        public string placement;
+        public string item_type;
+        public string item_id;
+        
         protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.virtual_currency_name.ToString(), virtual_currency_name));
             parameters.Add(new Parameter(ParameterEnum.value.ToString(), value));
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
+            parameters.Add(new Parameter(ParameterEnum.item_type.ToString(), item_type));
+            parameters.Add(new Parameter(ParameterEnum.item_id.ToString(), item_id));
             return parameters;
         }
     }
