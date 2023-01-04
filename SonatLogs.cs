@@ -17,14 +17,14 @@ namespace Sonat
         public string level;
         public string mode;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             FirebaseAnalytics.SetUserProperty(UserPropertyName.level.ToString(), level);
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
                 parameters.Add(new Parameter(ParameterEnum.mode.ToString(), mode));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -47,7 +47,7 @@ namespace Sonat
         public int score = int.MinValue;
         public int highest_score = int.MinValue;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.level.ToString(), level));
@@ -64,7 +64,7 @@ namespace Sonat
             parameters.Add(new Parameter(ParameterEnum.is_first_play.ToString(), is_first_play ? "true" : "false"));
             if(success)
                 parameters.Add(new Parameter(ParameterEnum.lose_cause.ToString(), lose_cause));
-            return parameters.ToArray();
+            return parameters;
 
 //            var dict = new Dictionary<string, string>();
 //            dict.Add(ParameterEnum.level.ToString(),level);
@@ -89,13 +89,13 @@ namespace Sonat
         public string level;
         public string character;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(character))
                 parameters.Add(new Parameter(ParameterEnum.character.ToString(), character));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -108,14 +108,14 @@ namespace Sonat
         public string level;
         public string mode;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.name.ToString(), name));
             parameters.Add(new Parameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
                 parameters.Add(new Parameter(ParameterEnum.mode.ToString(), mode));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -128,14 +128,14 @@ namespace Sonat
         public string level;
         public string mode;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.score.ToString(), score));
             parameters.Add(new Parameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
                 parameters.Add(new Parameter(ParameterEnum.mode.ToString(), mode));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -147,12 +147,12 @@ namespace Sonat
         public string placement;
         public long time_msec;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
             parameters.Add(new Parameter(ParameterEnum.time_msec.ToString(), time_msec));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -163,11 +163,11 @@ namespace Sonat
 
         public string placement;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -178,11 +178,11 @@ namespace Sonat
 
         public string placement;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -204,14 +204,14 @@ namespace Sonat
         /// </summary>
         public string screen_class;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             FirebaseAnalytics.SetUserProperty(UserPropertyName.last_screen.ToString(), screen_name);
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.screen_name.ToString(), screen_name));
             if (!string.IsNullOrEmpty(screen_class))
                 parameters.Add(new Parameter(ParameterEnum.screen_class.ToString(), screen_class));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -224,13 +224,13 @@ namespace Sonat
         public double value;
         public double placement;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.screen_name.ToString(), virtual_currency_name));
             parameters.Add(new Parameter(ParameterEnum.value.ToString(), value));
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -245,7 +245,7 @@ namespace Sonat
         public string item_type;
         public string item_id;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.screen_name.ToString(), virtual_currency_name));
@@ -253,7 +253,7 @@ namespace Sonat
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
             parameters.Add(new Parameter(ParameterEnum.item_type.ToString(), item_type));
             parameters.Add(new Parameter(ParameterEnum.item_id.ToString(), item_id));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -266,7 +266,7 @@ namespace Sonat
         public int level = int.MinValue;
         public string mode;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
@@ -274,7 +274,7 @@ namespace Sonat
                 parameters.Add(new Parameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
                 parameters.Add(new Parameter(ParameterEnum.mode.ToString(), mode));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -287,7 +287,7 @@ namespace Sonat
         public int level;
         public string mode;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
@@ -295,7 +295,7 @@ namespace Sonat
                 parameters.Add(new Parameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
                 parameters.Add(new Parameter(ParameterEnum.mode.ToString(), mode));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -335,12 +335,12 @@ namespace Sonat
         public ShowRateOpenBy open_by;
         public ShowRateAction action;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.open_by.ToString(), open_by.ToString()));
             parameters.Add(new Parameter(ParameterEnum.action.ToString(), convert[(int) action]));
-            return parameters.ToArray();
+            return parameters;
         }
     }
 
@@ -350,11 +350,11 @@ namespace Sonat
         public override string EventName => EventNameEnum.click_icon_shortcut.ToString();
         public string shortcut;
 
-        protected override Parameter[] GetParameters()
+        protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.shortcut.ToString(), shortcut.ToString()));
-            return parameters.ToArray();
+            return parameters;
         }
     }
     

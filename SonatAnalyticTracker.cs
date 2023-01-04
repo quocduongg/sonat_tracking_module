@@ -16,6 +16,14 @@ public enum AdType
     app_open = 4,
 }
 
+public enum network_connect_type
+{
+    none = 0,
+    wifi = 1,
+    mobile  = 2,
+    other = 3,
+}
+
 
 namespace Sonat
 {
@@ -79,7 +87,7 @@ namespace Sonat
     
     public abstract class BaseSonatAnalyticLog
     {
-        protected abstract Parameter[] GetParameters();
+        protected abstract List<Parameter> GetParameters();
         public abstract string EventName { get; }
 
 
@@ -93,17 +101,47 @@ namespace Sonat
         {
             if (SonatAnalyticTracker.FirebaseReady)
             {
+                var listParameters = GetParameters();
+                listParameters.Add(new Parameter(nameof(network_connect_type),GetConnectionType().ToString()));
                 if (_extra != null)
                 {
-                    var list = _extra.ToList();
-                    list.AddRange(GetParameters());
-                    FirebaseAnalytics.LogEvent(EventName, list.ToArray());
+                    listParameters.AddRange(GetParameters());
+                    FirebaseAnalytics.LogEvent(EventName, listParameters.ToArray());
                 }
                 else
-                    FirebaseAnalytics.LogEvent(EventName, GetParameters());
+                    FirebaseAnalytics.LogEvent(EventName, listParameters.ToArray());
             }
             else
                 Debug.Log("Firebase not ready : SonatAnalyticTracker.FirebaseReady");
+        }
+
+        private network_connect_type GetConnectionType()
+        {
+            switch (Application.internetReachability)
+            {
+                case NetworkReachability.NotReachable:
+                    return network_connect_type.none;
+                    break;
+                case NetworkReachability.ReachableViaCarrierDataNetwork:
+                    return network_connect_type.mobile;
+                    break;
+                case NetworkReachability.ReachableViaLocalAreaNetwork:
+                    return network_connect_type.wifi;
+                    break;
+                default:
+                    return network_connect_type.other;
+            }
+        }
+        
+        public static bool IsInternetConnection()
+        {
+        
+#if UNITY_EDITOR
+
+            return true;
+#endif
+            return Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork ||
+                   Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork;
         }
     }
     
