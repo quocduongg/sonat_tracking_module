@@ -243,5 +243,6 @@ public enum ParameterEnum
     item_id,
     open_by,
     action,
-    shortcut
+    shortcut,
+    virtual_currency_name
 }

@@ -227,7 +227,7 @@ namespace Sonat
         protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(ParameterEnum.screen_name.ToString(), virtual_currency_name));
+            parameters.Add(new Parameter(ParameterEnum.virtual_currency_name.ToString(), virtual_currency_name));
             parameters.Add(new Parameter(ParameterEnum.value.ToString(), value));
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
             return parameters;
@@ -248,7 +248,7 @@ namespace Sonat
         protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(ParameterEnum.screen_name.ToString(), virtual_currency_name));
+            parameters.Add(new Parameter(ParameterEnum.virtual_currency_name.ToString(), virtual_currency_name));
             parameters.Add(new Parameter(ParameterEnum.value.ToString(), value));
             parameters.Add(new Parameter(ParameterEnum.placement.ToString(), placement));
             parameters.Add(new Parameter(ParameterEnum.item_type.ToString(), item_type));
