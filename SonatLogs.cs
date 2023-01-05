@@ -16,10 +16,12 @@ namespace Sonat
 
         public string level;
         public string mode;
+        public bool setUserProperty = false;
 
         protected override List<Parameter> GetParameters()
         {
-            FirebaseAnalytics.SetUserProperty(UserPropertyName.level.ToString(), level);
+            if(setUserProperty)
+                FirebaseAnalytics.SetUserProperty(UserPropertyName.level.ToString(), level);
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
