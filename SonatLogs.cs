@@ -16,7 +16,7 @@ namespace Sonat
 
         public string level;
         public string mode;
-        public bool setUserProperty = false;
+        public bool setUserProperty = true;
 
         protected override List<Parameter> GetParameters()
         {
