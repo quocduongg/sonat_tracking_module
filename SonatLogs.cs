@@ -206,13 +206,53 @@ namespace Sonat
         /// </summary>
         public string screen_class;
 
+        public bool saveLastScreen = true;
+
+        private string LastScreen
+        {
+            get => PlayerPrefs.GetString("last_screen");
+            set => PlayerPrefs.SetString("last_screen",value);
+        }
+        private string LastScreenClass
+        {
+            get => PlayerPrefs.GetString("last_screen_class");
+            set => PlayerPrefs.SetString("last_screen_class",value);
+        }
         protected override List<Parameter> GetParameters()
         {
+            if (saveLastScreen)
+            {
+                LastScreen = screen_name;
+                LastScreenClass = screen_class;
+            }
             FirebaseAnalytics.SetUserProperty(UserPropertyName.last_screen.ToString(), screen_name);
             List<Parameter> parameters = new List<Parameter>();
             parameters.Add(new Parameter(ParameterEnum.screen_name.ToString(), screen_name));
             if (!string.IsNullOrEmpty(screen_class))
                 parameters.Add(new Parameter(ParameterEnum.screen_class.ToString(), screen_class));
+            return parameters;
+        }
+    }
+    
+    public class SonatLogLastScreenView : BaseSonatAnalyticLog
+    {
+        public override string EventName => EventNameEnum.screen_view.ToString();
+
+        private string LastScreen
+        {
+            get => PlayerPrefs.GetString("last_screen");
+        }
+        private string LastScreenClass
+        {
+            get => PlayerPrefs.GetString("last_screen_class");
+        }
+        protected override List<Parameter> GetParameters()
+        {
+            FirebaseAnalytics.SetUserProperty(UserPropertyName.last_screen.ToString(), LastScreen);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(ParameterEnum.screen_name.ToString(), LastScreen));
+            if (!string.IsNullOrEmpty(LastScreenClass))
+                parameters.Add(new Parameter(ParameterEnum.screen_class.ToString(), LastScreenClass));
             return parameters;
         }
     }

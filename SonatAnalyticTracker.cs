@@ -211,6 +211,12 @@ public enum UserPropertyName
     last_screen,
     level
 }
+
+public enum ParameterValue
+{
+    IntersAds,
+    RewardedAds,
+}
 public enum ParameterEnum
 {
     placement,
