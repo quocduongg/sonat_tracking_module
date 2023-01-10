@@ -92,9 +92,10 @@ namespace Sonat
 
 
         private Parameter[] _extra;
-        public void SetExtraParameter(Parameter[] extra)
+        public BaseSonatAnalyticLog SetExtraParameter(Parameter[] extra)
         {
             _extra = extra;
+            return this;
         }
         
         public void Post()
