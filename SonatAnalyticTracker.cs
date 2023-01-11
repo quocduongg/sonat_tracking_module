@@ -14,6 +14,7 @@ public enum AdType
     interstital  = 2,
     rewarded_video = 3,
     app_open = 4,
+    native_banner = 5,
 }
 
 public enum network_connect_type
