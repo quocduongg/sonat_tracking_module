@@ -217,6 +217,7 @@ public enum ParameterValue
 {
     IntersAds,
     RewardedAds,
+    ad_break,
 }
 public enum ParameterEnum
 {
@@ -252,5 +253,5 @@ public enum ParameterEnum
     open_by,
     action,
     shortcut,
-    virtual_currency_name
+    virtual_currency_name,
 }
