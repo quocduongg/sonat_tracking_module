@@ -43,7 +43,7 @@ namespace Sonat
         /// <param name="precision">float string</param>
         /// <param name="adType">banner, inter, video</param>
         /// <param name="currencyCode">usd maybe</param>
-        public static void LogFirebaseRevenue(string platform, string adNetwork, double revenue, string precision,
+        public static void LogFirebaseRevenue(AdsPlatform platform, string adNetwork, double revenue, string precision,
             string adType, string currencyCode = "USD")
         {
             if(!FirebaseReady) return;
@@ -58,7 +58,7 @@ namespace Sonat
                 new Parameter("precision", precision),
                 new Parameter("ad_format", adType),
                 new Parameter("ad_source", adNetwork),
-                new Parameter("ad_platform", platform),
+                new Parameter("ad_platform", platform.ToString()),
                 //new Parameter("adunitid", adUnitId),
                 //new Parameter("network", this.rewardedAd.MediationAdapterClassName())
             };
@@ -254,4 +254,11 @@ public enum ParameterEnum
     action,
     shortcut,
     virtual_currency_name,
+}
+
+public enum AdsPlatform
+{
+    max,
+    googleadmob,
+    iron_source
 }
