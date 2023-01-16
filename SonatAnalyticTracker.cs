@@ -11,7 +11,7 @@ public enum AdType
 {
     undefined = 0,
     banner = 1,
-    interstital  = 2,
+    interstital = 2,
     rewarded_video = 3,
     app_open = 4,
     native_banner = 5,
@@ -21,86 +21,84 @@ public enum network_connect_type
 {
     none = 0,
     wifi = 1,
-    mobile  = 2,
+    mobile = 2,
     other = 3,
 }
 
 
 namespace Sonat
 {
-    
     public static class SonatTrackingHelper
     {
-    
-          private static string GetDefault(AdsPlatform platform)
-    {
-        switch (platform)
+        private static string GetDefault(AdsPlatform platform)
         {
-            case AdsPlatform.max:
-                return "applovinmax";
-            case AdsPlatform.googleadmob:
+            switch (platform)
+            {
+                case AdsPlatform.max:
+                    return "applovinmax";
+                case AdsPlatform.googleadmob:
+                    return "admob";
+                case AdsPlatform.iron_source:
+                    return "iron_source";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
+            }
+        }
+
+
+        public static string GetNetworkName(string fullNetworkName, AdsPlatform platform)
+        {
+            if (string.IsNullOrEmpty(fullNetworkName))
+                return GetDefault(platform);
+
+            var lower = fullNetworkName.ToLower();
+            if (lower.Contains("admob"))
                 return "admob";
-            case AdsPlatform.iron_source:
-                return "iron_source";
-            default:
-                throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
+            if (lower.Contains("max"))
+                return "applovinmax";
+            if (lower.Contains("fyber"))
+                return "fyber";
+            if (lower.Contains("appodeal"))
+                return "appodeal";
+            if (lower.Contains("inmobi"))
+                return "inmobi";
+            if (lower.Contains("vungle"))
+                return "vungle";
+            if (lower.Contains("admost"))
+                return "admost";
+            if (lower.Contains("topon"))
+                return "topon";
+            if (lower.Contains("tradplus"))
+                return "tradplus";
+            if (lower.Contains("chartboost"))
+                return "chartboost";
+            if (lower.Contains("appodeal"))
+                return "appodeal";
+            if (lower.Contains("google"))
+                return "googleadmanager";
+            if (lower.Contains("google"))
+                return "googlead";
+            if (lower.Contains("facebook") || lower.Contains("meta"))
+                return "facebook";
+            if (lower.Contains("applovin") || lower.Contains("max"))
+                return "applovin";
+            if (lower.Contains("ironsource"))
+                return "ironsource";
+            if (lower.Contains("unity"))
+                return "unity";
+            if (lower.Contains("mintegral") || lower.Contains("mtg"))
+                return "mtg";
+
+            return GetDefault(platform);
         }
     }
 
-
-    public static string GetNetworkName(string fullNetworkName, AdsPlatform platform)
-    {
-        if (string.IsNullOrEmpty(fullNetworkName))
-            return GetDefault(platform);
-
-        var lower = fullNetworkName.ToLower();
-        if (lower.Contains("admob"))
-            return "admob";
-        if (lower.Contains("max"))
-            return "applovinmax";
-        if (lower.Contains("fyber"))
-            return "fyber";
-        if (lower.Contains("appodeal"))
-            return "appodeal";
-        if (lower.Contains("inmobi"))
-            return "inmobi";
-        if (lower.Contains("vungle"))
-            return "vungle";
-        if (lower.Contains("admost"))
-            return "admost";
-        if (lower.Contains("topon"))
-            return "topon";
-        if (lower.Contains("tradplus"))
-            return "tradplus";
-        if (lower.Contains("chartboost"))
-            return "chartboost";
-        if (lower.Contains("appodeal"))
-            return "appodeal";
-        if (lower.Contains("google"))
-            return "googleadmanager";
-        if (lower.Contains("google"))
-            return "googlead";
-        if (lower.Contains("facebook") || lower.Contains("meta"))
-            return "facebook";
-        if (lower.Contains("applovin") || lower.Contains("max"))
-            return "applovin";
-        if (lower.Contains("ironsource"))
-            return "ironsource";
-        if (lower.Contains("unity"))
-            return "unity";
-        if (lower.Contains("mintegral") || lower.Contains("mtg"))
-            return "mtg";
-
-        return GetDefault(platform);
-    }
-    }
-    
     public static class SonatAnalyticTracker
     {
         public static string RewardedLogName;
         public static string InterstitialLogName;
         public static bool FirebaseReady { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -113,8 +111,8 @@ namespace Sonat
         public static void LogFirebaseRevenue(AdsPlatform platform, string adapter, double revenue, string precision,
             string adType, string currencyCode = "USD")
         {
-            if(!FirebaseReady) return;
-            
+            if (!FirebaseReady) return;
+
             Parameter[] LTVParameters =
             {
                 new Parameter("valuemicros", revenue * 1000000f),
@@ -124,15 +122,16 @@ namespace Sonat
                 new Parameter("currency", currencyCode),
                 new Parameter("precision", precision),
                 new Parameter("ad_format", adType),
-                new Parameter("ad_source", SonatTrackingHelper.GetNetworkName(adapter,platform)),
+                new Parameter("ad_source", SonatTrackingHelper.GetNetworkName(adapter, platform)),
                 new Parameter("ad_platform", platform.ToString()),
                 //new Parameter("adunitid", adUnitId),
                 //new Parameter("network", this.rewardedAd.MediationAdapterClassName())
             };
             FirebaseAnalytics.LogEvent("paid_ad_impression", LTVParameters);
         }
-        
-        public static void LogAppsFlyerAdRevenue(string networkName, double revenue, string adType,string currencyCode= "USD", AppsFlyerAdRevenueMediationNetworkType networkType = AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeGoogleAdMob)
+
+        public static void LogAppsFlyerAdRevenue(AdsPlatform platform,string adapter, double revenue, string adType,
+            string currencyCode = "USD")
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("af_quantity", "1");
@@ -143,16 +142,34 @@ namespace Sonat
                 dic.Add("placement", RewardedLogName);
                 dic.Add("segment", InterstitialLogName);
             }
+
             if (AdType.interstital.ToString() == adType)
             {
-                dic.Add("placement",RewardedLogName);
+                dic.Add("placement", RewardedLogName);
                 dic.Add("segment", InterstitialLogName);
             }
-            Debug.Log($"duong logAdRevenue networkName:{networkName},networkType:{networkType},revenue{revenue}");
-            AppsFlyerAdRevenue.logAdRevenue(networkName, networkType, revenue, currencyCode, dic);
+
+            Debug.Log($"duong logAdRevenue adapter:{adapter},platform:{platform},revenue{revenue}");
+            AppsFlyerAdRevenue.logAdRevenue(SonatTrackingHelper.GetNetworkName(adapter, platform),
+                GetNetworkType(platform), revenue, currencyCode, dic);
+        }
+
+        private static AppsFlyerAdRevenueMediationNetworkType GetNetworkType(AdsPlatform platform)
+        {
+            switch (platform)
+            {
+                case AdsPlatform.max:
+                    return AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeApplovinMax;
+                case AdsPlatform.googleadmob:
+                    return AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeGoogleAdMob;
+                case AdsPlatform.iron_source:
+                    return AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeIronSource;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
+            }
         }
     }
-    
+
     public abstract class BaseSonatAnalyticLog
     {
         protected abstract List<Parameter> GetParameters();
@@ -160,18 +177,19 @@ namespace Sonat
 
 
         private Parameter[] _extra;
+
         public BaseSonatAnalyticLog SetExtraParameter(Parameter[] extra)
         {
             _extra = extra;
             return this;
         }
-        
+
         public void Post()
         {
             if (SonatAnalyticTracker.FirebaseReady)
             {
                 var listParameters = GetParameters();
-                listParameters.Add(new Parameter(nameof(network_connect_type),GetConnectionType().ToString()));
+                listParameters.Add(new Parameter(nameof(network_connect_type), GetConnectionType().ToString()));
                 if (_extra != null)
                 {
                     listParameters.AddRange(GetParameters());
@@ -201,10 +219,9 @@ namespace Sonat
                     return network_connect_type.other;
             }
         }
-        
+
         public static bool IsInternetConnection()
         {
-        
 #if UNITY_EDITOR
 
             return true;
@@ -213,7 +230,7 @@ namespace Sonat
                    Application.internetReachability == NetworkReachability.ReachableViaLocalAreaNetwork;
         }
     }
-    
+
     public abstract class BaseSonatAnalyticLogAppflyer
     {
         protected abstract Dictionary<string, string> GetParameters();
@@ -286,6 +303,7 @@ public enum ParameterValue
     RewardedAds,
     ad_break,
 }
+
 public enum ParameterEnum
 {
     placement,
