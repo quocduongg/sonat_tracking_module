@@ -28,6 +28,73 @@ public enum network_connect_type
 
 namespace Sonat
 {
+    
+    public static class SonatTrackingHelper
+    {
+    
+          private static string GetDefault(AdsPlatform platform)
+    {
+        switch (platform)
+        {
+            case AdsPlatform.max:
+                return "applovinmax";
+            case AdsPlatform.googleadmob:
+                return "admob";
+            case AdsPlatform.iron_source:
+                return "iron_source";
+            default:
+                throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
+        }
+    }
+
+
+    public static string GetNetworkName(string fullNetworkName, AdsPlatform platform)
+    {
+        if (string.IsNullOrEmpty(fullNetworkName))
+            return GetDefault(platform);
+
+        var lower = fullNetworkName.ToLower();
+        if (lower.Contains("admob"))
+            return "admob";
+        if (lower.Contains("max"))
+            return "applovinmax";
+        if (lower.Contains("fyber"))
+            return "fyber";
+        if (lower.Contains("appodeal"))
+            return "appodeal";
+        if (lower.Contains("inmobi"))
+            return "inmobi";
+        if (lower.Contains("vungle"))
+            return "vungle";
+        if (lower.Contains("admost"))
+            return "admost";
+        if (lower.Contains("topon"))
+            return "topon";
+        if (lower.Contains("tradplus"))
+            return "tradplus";
+        if (lower.Contains("chartboost"))
+            return "chartboost";
+        if (lower.Contains("appodeal"))
+            return "appodeal";
+        if (lower.Contains("google"))
+            return "googleadmanager";
+        if (lower.Contains("google"))
+            return "googlead";
+        if (lower.Contains("facebook") || lower.Contains("meta"))
+            return "facebook";
+        if (lower.Contains("applovin") || lower.Contains("max"))
+            return "applovin";
+        if (lower.Contains("ironsource"))
+            return "ironsource";
+        if (lower.Contains("unity"))
+            return "unity";
+        if (lower.Contains("mintegral") || lower.Contains("mtg"))
+            return "mtg";
+
+        return GetDefault(platform);
+    }
+    }
+    
     public static class SonatAnalyticTracker
     {
         public static string RewardedLogName;
