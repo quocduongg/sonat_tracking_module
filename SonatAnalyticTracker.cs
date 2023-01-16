@@ -34,11 +34,11 @@ namespace Sonat
         {
             switch (platform)
             {
-                case AdsPlatform.max:
+                case AdsPlatform.applovinmax:
                     return "applovinmax";
                 case AdsPlatform.googleadmob:
                     return "admob";
-                case AdsPlatform.iron_source:
+                case AdsPlatform.ironsource:
                     return "iron_source";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
@@ -99,6 +99,23 @@ namespace Sonat
         public static string InterstitialLogName;
         public static bool FirebaseReady { get; set; }
 
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="platform"> admob, max app lovin or iron source</param>
+        /// <param name="adapter"></param>
+        /// <param name="revenue">revenue in USD not microUSD</param>
+        /// <param name="precision">float string</param>
+        /// <param name="adType">banner, inter, video</param>
+        /// <param name="currencyCode">usd maybe</param>
+        public static void LogRevenue(AdsPlatform platform, string adapter, double revenue, string precision,
+            string adType, string currencyCode = "USD")
+        {
+            LogFirebaseRevenue(platform,adapter,revenue,precision,adType,currencyCode);
+            LogAppsFlyerAdRevenue(platform,adapter,revenue,adType,currencyCode);
+        }
+        
         /// <summary>
         /// 
         /// </summary>
@@ -158,11 +175,11 @@ namespace Sonat
         {
             switch (platform)
             {
-                case AdsPlatform.max:
+                case AdsPlatform.applovinmax:
                     return AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeApplovinMax;
                 case AdsPlatform.googleadmob:
                     return AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeGoogleAdMob;
-                case AdsPlatform.iron_source:
+                case AdsPlatform.ironsource:
                     return AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeIronSource;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
@@ -343,7 +360,7 @@ public enum ParameterEnum
 
 public enum AdsPlatform
 {
-    max,
+    applovinmax,
     googleadmob,
-    iron_source
+    ironsource
 }
