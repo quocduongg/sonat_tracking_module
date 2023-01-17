@@ -110,10 +110,10 @@ namespace Sonat
         /// <param name="adType">banner, inter, video</param>
         /// <param name="currencyCode">usd maybe</param>
         public static void LogRevenue(AdsPlatform platform, string adapter, double revenue, string precision,
-            string adType, string currencyCode = "USD")
+            AdTypeLog adType, string currencyCode = "USD")
         {
-            LogFirebaseRevenue(platform,adapter,revenue,precision,adType,currencyCode);
-            LogAppsFlyerAdRevenue(platform,adapter,revenue,adType,currencyCode);
+            LogFirebaseRevenue(platform,adapter,revenue,precision,adType.ToString(),currencyCode);
+            LogAppsFlyerAdRevenue(platform,adapter,revenue,adType.ToString(),currencyCode);
         }
         
         /// <summary>
@@ -363,4 +363,24 @@ public enum AdsPlatform
     applovinmax,
     googleadmob,
     ironsource
+}
+
+public enum AdTypeLog
+{
+    banner,
+    interstitial,
+    native,
+    video,
+    rewarded_video,
+    rewarded,
+    mraid,
+    mrec,
+    offer_wall,
+    playable,
+    more_apps,
+    video_interstitial,
+    medium,
+    custom,
+    banner_interstitial,
+    other,
 }
