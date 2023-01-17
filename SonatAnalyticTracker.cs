@@ -11,7 +11,7 @@ public enum AdType
 {
     undefined = 0,
     banner = 1,
-    interstital = 2,
+    interstitial = 2,
     rewarded_video = 3,
     app_open = 4,
     native_banner = 5,
@@ -160,7 +160,7 @@ namespace Sonat
                 dic.Add("segment", InterstitialLogName);
             }
 
-            if (AdType.interstital.ToString() == adType)
+            if (AdType.interstitial.ToString() == adType)
             {
                 dic.Add("placement", RewardedLogName);
                 dic.Add("segment", InterstitialLogName);
@@ -384,4 +384,5 @@ public enum AdTypeLog
     banner_interstitial,
     app_open,
     other,
+    native_banner
 }
