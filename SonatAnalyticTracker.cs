@@ -35,11 +35,11 @@ namespace Sonat
             switch (platform)
             {
                 case AdsPlatform.applovinmax:
-                    return "applovinmax";
+                    return platform.ToString();
                 case AdsPlatform.googleadmob:
                     return "admob";
                 case AdsPlatform.ironsource:
-                    return "iron_source";
+                    return platform.ToString();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(platform), platform, null);
             }
