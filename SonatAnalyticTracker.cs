@@ -382,5 +382,6 @@ public enum AdTypeLog
     medium,
     custom,
     banner_interstitial,
+    app_open,
     other,
 }
