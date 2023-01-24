@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
+using UnityEngine;
+#if !dummy_log
+
 using AppsFlyerSDK;
 using Firebase.Analytics;
-using UnityEngine;
-
-// ReSharper disable InconsistentNaming
-
 namespace Sonat
 {
     [Serializable]
@@ -431,4 +431,5 @@ namespace Sonat
     }
 
 }
+#endif
 // ReSharper disable InconsistentNaming
