@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Firebase.Analytics;
 using UnityEngine;
 
 #if dummy_log
@@ -11,6 +10,11 @@ namespace Sonat
         public static string RewardedLogName;
         public static string InterstitialLogName;
         public static bool FirebaseReady { get; set; }
+    }
+
+    public class Parameter
+    {
+        
     }
 
     public abstract class BaseSonatAnalyticLog
@@ -272,7 +276,7 @@ namespace Sonat
         protected override List<Parameter> GetParameters()
         {
             List<Parameter> parameters = new List<Parameter>();
-            parameters.Add(new Parameter(ParameterEnum.shortcut.ToString(), shortcut.ToString()));
+          //  parameters.Add(new Parameter(ParameterEnum.shortcut.ToString(), shortcut.ToString()));
             return parameters;
         }
     }
