@@ -141,12 +141,12 @@ namespace Sonat
             if (AdTypeLog.rewarded_video.ToString() == adType)
             {
                 dic.Add("placement", RewardedLogName);
-                dic.Add("segment", InterstitialLogName);
+                dic.Add("segment", RewardedLogName);
             }
 
             if (AdTypeLog.interstitial.ToString() == adType)
             {
-                dic.Add("placement", RewardedLogName);
+                dic.Add("placement", InterstitialLogName);
                 dic.Add("segment", InterstitialLogName);
             }
 
@@ -185,7 +185,7 @@ namespace Sonat
             return this;
         }
 
-        public void Post()
+        public void Post(bool appsflyer = false)
         {
             if (SonatAnalyticTracker.FirebaseReady)
             {
