@@ -12,6 +12,8 @@ using Firebase.Analytics;
 
 namespace Sonat
 {
+  
+    
     public static class SonatTrackingHelper
     {
         private static string GetDefault(AdsPlatform platform)
@@ -173,34 +175,50 @@ namespace Sonat
 
     public abstract class BaseSonatAnalyticLog
     {
-        protected abstract List<Parameter> GetParameters();
+        protected abstract List<LogParameter> GetParameters();
         public abstract string EventName { get; }
 
 
-        private Parameter[] _extra;
+        private LogParameter[] _extra;
 
-        public BaseSonatAnalyticLog SetExtraParameter(Parameter[] extra)
+        private bool _logAf;
+
+        public void SetLogAppflyer()
+        {
+            _logAf = true;
+        }
+        
+
+        public BaseSonatAnalyticLog SetExtraParameter(LogParameter[] extra)
         {
             _extra = extra;
             return this;
         }
 
-        public void Post(bool appsflyer = false)
+        public void Post()
         {
+            var listParameters = GetParameters();
             if (SonatAnalyticTracker.FirebaseReady)
             {
-                var listParameters = GetParameters();
-                listParameters.Add(new Parameter(nameof(network_connect_type), GetConnectionType().ToString()));
+                listParameters.Add(new LogParameter(nameof(network_connect_type), GetConnectionType().ToString()));
                 if (_extra != null)
                 {
                     listParameters.AddRange(GetParameters());
-                    FirebaseAnalytics.LogEvent(EventName, listParameters.ToArray());
+                    FirebaseAnalytics.LogEvent(EventName, listParameters.Select(x => x.Param).ToArray());
                 }
                 else
-                    FirebaseAnalytics.LogEvent(EventName, listParameters.ToArray());
+                    FirebaseAnalytics.LogEvent(EventName, listParameters.Select(x => x.Param).ToArray());
             }
             else
                 Debug.Log("Firebase not ready : SonatAnalyticTracker.FirebaseReady");
+
+            if (_logAf)
+            {
+                var dict = new Dictionary<string, string>();
+                foreach (var parameter in listParameters)
+                    dict.Add(parameter.stringKey, parameter.stringValue);
+                AppsFlyer.sendEvent(EventName, dict);
+            }
         }
 
         private network_connect_type GetConnectionType()
