@@ -1,3 +1,4 @@
+#define dummy
 using System;
 
 namespace Sonat
