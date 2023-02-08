@@ -23,7 +23,8 @@ public enum EventNameEnum
     spend_virtual_currency,
     show_rate,
     click_icon_shortcut,
-    af_purchase
+    af_purchase,
+    click_shop
 }
 
 public enum EventNameEnumForAf

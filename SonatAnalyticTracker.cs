@@ -180,13 +180,6 @@ namespace Sonat
 
 
         private LogParameter[] _extra;
-
-        private bool _logAf;
-
-        public void SetLogAppflyer()
-        {
-            _logAf = true;
-        }
         
 
         public BaseSonatAnalyticLog SetExtraParameter(LogParameter[] extra)
@@ -195,7 +188,7 @@ namespace Sonat
             return this;
         }
 
-        public void Post()
+        public void Post(bool logAf = false)
         {
             var listParameters = GetParameters();
             if (SonatAnalyticTracker.FirebaseReady)
@@ -212,7 +205,7 @@ namespace Sonat
             else
                 Debug.Log("Firebase not ready : SonatAnalyticTracker.FirebaseReady");
 
-            if (_logAf)
+            if (logAf)
             {
                 var dict = new Dictionary<string, string>();
                 foreach (var parameter in listParameters)

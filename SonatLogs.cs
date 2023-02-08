@@ -344,6 +344,21 @@ namespace Sonat
             return parameters;
         }
     }
+    
+    [Serializable]
+    public class SonatLogClickShop : BaseSonatAnalyticLog
+    {
+        public override string EventName =>  EventNameEnum.click_shop.ToString();
+        public string action;
+
+        protected override List<Sonat.LogParameter> GetParameters()
+        {
+            List<Sonat.LogParameter> parameters = new List<Sonat.LogParameter>();
+            parameters.Add(new Sonat.LogParameter(ParameterEnum.action.ToString(), action.ToString()));
+            return parameters;
+        }
+    }
+
 
     [Serializable]
     public class SonatLogShowRate : BaseSonatAnalyticLog
