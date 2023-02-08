@@ -115,6 +115,18 @@ namespace Sonat
         CreateFirebaseParam();
     }
 
+    public LogParameter(string name, bool value, int value2, float value3, string value4, ParamType type)
+    {
+        this.type = type;
+        stringKey = name;
+        boolValue = value;
+        intValue = value2;
+        floatValue = value3;
+        stringValue = value4;
+        CreateFirebaseParam();
+    }
+
+
     public LogParameter(string name, float value, int order = 0)
     {
         this.order = order;
