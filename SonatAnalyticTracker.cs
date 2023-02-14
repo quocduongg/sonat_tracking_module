@@ -96,10 +96,10 @@ namespace Sonat
         /// <param name="adType">banner, inter, video</param>
         /// <param name="currencyCode">usd maybe</param>
         public static void LogRevenue(AdsPlatform platform, string adapter, double revenue, string precision,
-            AdTypeLog adType, string currencyCode = "USD")
+            AdTypeLog adType,string fb_instance_id,string placement, string currencyCode = "USD")
         {
-            LogFirebaseRevenue(platform,adapter,revenue,precision,adType.ToString(),currencyCode);
-            LogAppsFlyerAdRevenue(platform,adapter,revenue,adType.ToString(),currencyCode);
+            LogFirebaseRevenue(platform,adapter,revenue,precision,adType.ToString(),fb_instance_id,placement,currencyCode);
+            LogAppsFlyerAdRevenue(platform,adapter,revenue,adType.ToString(),fb_instance_id,placement,currencyCode);
         }
         
         /// <summary>
@@ -112,7 +112,7 @@ namespace Sonat
         /// <param name="adType">banner, inter, video</param>
         /// <param name="currencyCode">usd maybe</param>
         public static void LogFirebaseRevenue(AdsPlatform platform, string adapter, double revenue, string precision,
-            string adType, string currencyCode = "USD")
+            string adType, string fb_instance_id,string placement, string currencyCode = "USD")
         {
             if (!FirebaseReady) return;
 
@@ -125,6 +125,8 @@ namespace Sonat
                 new Parameter("currency", currencyCode),
                 new Parameter("precision", precision),
                 new Parameter("ad_format", adType),
+                new Parameter("fb_instance_id", fb_instance_id),
+                new Parameter("ad_placement", placement),
                 new Parameter("ad_source", SonatTrackingHelper.GetNetworkName(adapter, platform)),
                 new Parameter("ad_platform", platform.ToString()),
                 //new Parameter("adunitid", adUnitId),
@@ -133,24 +135,15 @@ namespace Sonat
             FirebaseAnalytics.LogEvent("paid_ad_impression", LTVParameters);
         }
 
-        public static void LogAppsFlyerAdRevenue(AdsPlatform platform,string adapter, double revenue, string adType,
+        public static void LogAppsFlyerAdRevenue(AdsPlatform platform,string adapter, double revenue, string adType,string firebase_instance_id,string placement, 
             string currencyCode = "USD")
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("af_quantity", "1");
             dic.Add("ad_type", adType);
             dic.Add("ad_unit", adType);
-            if (AdTypeLog.rewarded_video.ToString() == adType)
-            {
-                dic.Add("placement", RewardedLogName);
-                dic.Add("segment", RewardedLogName);
-            }
-
-            if (AdTypeLog.interstitial.ToString() == adType)
-            {
-                dic.Add("placement", InterstitialLogName);
-                dic.Add("segment", InterstitialLogName);
-            }
+            dic.Add("placement", placement);
+            dic.Add("segment", placement);
 
             Debug.Log($"duong logAdRevenue adapter:{adapter},platform:{platform},revenue{revenue}");
             AppsFlyerAdRevenue.logAdRevenue(SonatTrackingHelper.GetNetworkName(adapter, platform),
