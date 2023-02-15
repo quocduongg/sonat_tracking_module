@@ -132,7 +132,7 @@ namespace Sonat
                 //new Parameter("adunitid", adUnitId),
                 //new Parameter("network", this.rewardedAd.MediationAdapterClassName())
             };
-            FirebaseAnalytics.LogEvent("paid_ad_impression", LTVParameters);
+            FirebaseAnalytics.LogEvent(EventNameEnum.paid_ad_impression.ToString(), LTVParameters);
         }
 
         public static void LogAppsFlyerAdRevenue(AdsPlatform platform,string adapter, double revenue, string adType,string firebase_instance_id,string placement, 

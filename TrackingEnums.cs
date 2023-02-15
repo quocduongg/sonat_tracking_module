@@ -10,7 +10,7 @@ public enum EventNameEnum
     level_start,
     remove_ads_success,
     ctr_impression,
-    ctr_click,
+    paid_ad_click,
     level_end,
     level_up,
     use_booster,
@@ -24,7 +24,8 @@ public enum EventNameEnum
     show_rate,
     click_icon_shortcut,
     af_purchase,
-    click_shop
+    click_shop,
+    paid_ad_impression
 }
 
 public enum EventNameEnumForAf
@@ -72,7 +73,7 @@ public enum ParameterEnum
     in_app_key,
     store_product_id,
     price,
-    format,
+    ad_format,
     ad_value,
     placement_name,
     fb_instance_id,

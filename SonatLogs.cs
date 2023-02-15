@@ -346,15 +346,33 @@ namespace Sonat
     }
     
     [Serializable]
+    public class SonatPaidAdClick : BaseSonatAnalyticLog
+    {
+        public override string EventName =>  EventNameEnum.paid_ad_click.ToString();
+        public AdTypeLog ad_format;
+        public string placement_name;
+        public string fb_instance_id;
+        
+        protected override List<LogParameter> GetParameters()
+        {
+            List<LogParameter> parameters = new List<LogParameter>();
+            parameters.Add(new LogParameter(ParameterEnum.ad_format.ToString(), ad_format.ToString()));
+            parameters.Add(new LogParameter(ParameterEnum.placement_name.ToString(), placement_name));
+            parameters.Add(new LogParameter(ParameterEnum.fb_instance_id.ToString(), fb_instance_id));
+            return parameters;
+        }
+    }
+    
+    [Serializable]
     public class SonatLogClickShop : BaseSonatAnalyticLog
     {
         public override string EventName =>  EventNameEnum.click_shop.ToString();
         public string action;
 
-        protected override List<Sonat.LogParameter> GetParameters()
+        protected override List<LogParameter> GetParameters()
         {
-            List<Sonat.LogParameter> parameters = new List<Sonat.LogParameter>();
-            parameters.Add(new Sonat.LogParameter(ParameterEnum.action.ToString(), action.ToString()));
+            List<LogParameter> parameters = new List<LogParameter>();
+            parameters.Add(new LogParameter(ParameterEnum.action.ToString(), action.ToString()));
             return parameters;
         }
     }
