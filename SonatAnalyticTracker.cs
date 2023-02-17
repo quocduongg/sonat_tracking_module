@@ -45,7 +45,6 @@ namespace Sonat
             {"topon","topon"},
             {"tradplus","tradplus"},
             {"chartboost","chartboost"},
-            {"appodeal","appodeal"},
             {"facebook","facebook"},
             {"meta","facebook"},
             {"mintegral","mintegral"},
@@ -67,6 +66,7 @@ namespace Sonat
 
         public static string FindNetworkName(string splitLower)
         {
+            Debug.Log(splitLower);
             foreach (var keyValuePair in mediationDict)
                 if (splitLower.Contains(keyValuePair.Key))
                     return keyValuePair.Value;
