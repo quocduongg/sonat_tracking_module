@@ -34,7 +34,6 @@ namespace Sonat
         private static Dictionary<string,string>  mediationDict = new Dictionary<string, string>()
         {
             {"googleadmanager","googleadmanager"},
-            {"google","admob"},
             {"admob","admob"},
             {"applovin","applovinmax"},
             {"max","applovinmax"},
@@ -63,6 +62,7 @@ namespace Sonat
             {"verve","verve"},
             {"yahoo","yahoo"},
             {"yandex","yandex"},
+            {"google","admob"},
         };
 
         public static string FindNetworkName(string splitLower)
