@@ -31,51 +31,58 @@ namespace Sonat
             }
         }
 
+        private static Dictionary<string,string>  mediationDict = new Dictionary<string, string>()
+        {
+            {"googleadmanager","googleadmanager"},
+            {"google","admob"},
+            {"admob","admob"},
+            {"applovin","applovinmax"},
+            {"max","applovinmax"},
+            {"fyber","fyber"},
+            {"appodeal","appodeal"},
+            {"inmobi","inmobi"},
+            {"vungle","vungle"},
+            {"admost","admost"},
+            {"topon","topon"},
+            {"tradplus","tradplus"},
+            {"chartboost","chartboost"},
+            {"appodeal","appodeal"},
+            {"facebook","facebook"},
+            {"meta","facebook"},
+            {"mintegral","mintegral"},
+            {"mtg","mintegral"},
+            {"ironsource","ironsource"},
+            {"unity","unity"},
+            {"pangle","pangle"},
+            {"bytedance","bytedance"},
+            {"bidmachine","bidmachine"},
+            {"liftoff","liftoff"},
+            {"mytarget","mytarget"},
+            {"smaato","smaato"},
+            {"tapjoy","tapjoy"},
+            {"verve","verve"},
+            {"yahoo","yahoo"},
+            {"yandex","yandex"},
+        };
+
+        public static string FindNetworkName(string splitLower)
+        {
+            foreach (var keyValuePair in mediationDict)
+                if (splitLower.Contains(keyValuePair.Key))
+                    return keyValuePair.Value;
+
+            return null;
+        }
+
 
         public static string GetNetworkName(string fullNetworkName, AdsPlatform platform)
         {
             if (string.IsNullOrEmpty(fullNetworkName))
                 return GetDefault(platform);
 
-            var lower = fullNetworkName.ToLower();
-            if (lower.Contains("admob"))
-                return "admob";
-            if (lower.Contains("max"))
-                return "applovinmax";
-            if (lower.Contains("fyber"))
-                return "fyber";
-            if (lower.Contains("appodeal"))
-                return "appodeal";
-            if (lower.Contains("inmobi"))
-                return "inmobi";
-            if (lower.Contains("vungle"))
-                return "vungle";
-            if (lower.Contains("admost"))
-                return "admost";
-            if (lower.Contains("topon"))
-                return "topon";
-            if (lower.Contains("tradplus"))
-                return "tradplus";
-            if (lower.Contains("chartboost"))
-                return "chartboost";
-            if (lower.Contains("appodeal"))
-                return "appodeal";
-            if (lower.Contains("google"))
-                return "googleadmanager";
-            if (lower.Contains("google"))
-                return "googlead";
-            if (lower.Contains("facebook") || lower.Contains("meta"))
-                return "facebook";
-            if (lower.Contains("applovin") || lower.Contains("max"))
-                return "applovin";
-            if (lower.Contains("ironsource"))
-                return "ironsource";
-            if (lower.Contains("unity"))
-                return "unity";
-            if (lower.Contains("mintegral") || lower.Contains("mtg"))
-                return "mtg";
-
-            return GetDefault(platform);
+            var split = fullNetworkName.Split('.');
+            var lower = split[split.Length-1].ToLower();
+            return FindNetworkName(lower) ?? GetDefault(platform);
         }
     }
 
