@@ -116,7 +116,7 @@ namespace Sonat
         {
             if (!FirebaseReady) return;
 
-            Parameter[] LTVParameters =
+            Parameter[] parameters =
             {
                 new Parameter("valuemicros", revenue * 1000000f),
                 new Parameter("value", (float) revenue),
@@ -124,15 +124,13 @@ namespace Sonat
                 // But log for purposes of debugging and future reference.
                 new Parameter("currency", currencyCode),
                 new Parameter("precision", precision),
-                new Parameter("ad_format", adType),
-                new Parameter("fb_instance_id", fb_instance_id),
-                new Parameter("ad_placement", placement),
-                new Parameter("ad_source", SonatTrackingHelper.GetNetworkName(adapter, platform)),
-                new Parameter("ad_platform", platform.ToString()),
-                //new Parameter("adunitid", adUnitId),
-                //new Parameter("network", this.rewardedAd.MediationAdapterClassName())
+                new Parameter(ParameterEnum.ad_format.ToString(), adType),
+                new Parameter(ParameterEnum.fb_instance_id.ToString(), fb_instance_id),
+                new Parameter(ParameterEnum.ad_placement .ToString(), placement),
+                new Parameter(ParameterEnum.ad_source.ToString(), SonatTrackingHelper.GetNetworkName(adapter, platform)),
+                new Parameter(ParameterEnum.ad_platform.ToString(), platform.ToString()),
             };
-            FirebaseAnalytics.LogEvent(EventNameEnum.paid_ad_impression.ToString(), LTVParameters);
+            FirebaseAnalytics.LogEvent(EventNameEnum.paid_ad_impression.ToString(), parameters);
         }
 
         public static void LogAppsFlyerAdRevenue(AdsPlatform platform,string adapter, double revenue, string adType,string firebase_instance_id,string placement, 

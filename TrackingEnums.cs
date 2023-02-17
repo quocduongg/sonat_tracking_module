@@ -96,6 +96,9 @@ public enum ParameterEnum
     action,
     shortcut,
     virtual_currency_name,
+    ad_placement,
+    ad_source,
+    ad_platform
 }
 
 public enum AdsPlatform
