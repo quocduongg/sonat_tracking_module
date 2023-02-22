@@ -3,7 +3,7 @@ using System;
 
 namespace Sonat
 {
-	  public class LogParameter
+	public class LogParameter
 {
     public int order { get; }
 

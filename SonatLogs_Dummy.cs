@@ -10,22 +10,26 @@ namespace Sonat
         public static string RewardedLogName;
         public static string InterstitialLogName;
         public static bool FirebaseReady { get; set; }
+
+      
+        public static void LogRevenue(AdsPlatform platform, string adapter, double revenue, string precision,
+            AdTypeLog adType,string fb_instance_id,string placement, string currencyCode = "USD")
+        {
+          
+        }
     }
 
-    public class Parameter
-    {
-        
-    }
+
 
     public abstract class BaseSonatAnalyticLog
     {
-        protected virtual List<Parameter> GetParameters() => new List<Parameter>();
+        protected virtual List<LogParameter> GetParameters() => new List<LogParameter>();
         public abstract string EventName { get; }
 
 
-        private Parameter[] _extra;
+        private LogParameter[] _extra;
 
-        public BaseSonatAnalyticLog SetExtraParameter(Parameter[] extra)
+        public BaseSonatAnalyticLog SetExtraParameter(Sonat.LogParameter[] extra)
         {
             _extra = extra;
             return this;
@@ -62,6 +66,16 @@ namespace Sonat
         public string level;
         public string mode;
         public bool setUserProperty = true;
+    }
+    
+    [Serializable]
+    public class SonatPaidAdClick : BaseSonatAnalyticLog
+    {
+        public override string EventName =>  EventNameEnum.paid_ad_click.ToString();
+        public AdTypeLog ad_format;
+        public string ad_placement ;
+        public string fb_instance_id;
+        
     }
 
     [Serializable]
@@ -273,9 +287,9 @@ namespace Sonat
         public override string EventName => EventNameEnum.click_icon_shortcut.ToString();
         public string shortcut;
 
-        protected override List<Parameter> GetParameters()
+        protected override List<Sonat.LogParameter> GetParameters()
         {
-            List<Parameter> parameters = new List<Parameter>();
+            List<Sonat.LogParameter> parameters = new List<Sonat.LogParameter>();
           //  parameters.Add(new Parameter(ParameterEnum.shortcut.ToString(), shortcut.ToString()));
             return parameters;
         }
