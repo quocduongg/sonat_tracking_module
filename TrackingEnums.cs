@@ -110,6 +110,7 @@ public enum AdsPlatform
 
 public enum AdTypeLog
 {
+    undefined,
     banner,
     interstitial,
     native,
