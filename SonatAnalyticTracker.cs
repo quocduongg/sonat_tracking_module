@@ -31,7 +31,7 @@ namespace Sonat
             }
         }
 
-        private static Dictionary<string,string>  mediationDict = new Dictionary<string, string>()
+        private static readonly Dictionary<string,string>  mediationDict = new Dictionary<string, string>()
         {
             {"googleadmanager","googleadmanager"},
             {"admob","admob"},
@@ -66,7 +66,6 @@ namespace Sonat
 
         public static string FindNetworkName(string splitLower)
         {
-            Debug.Log(splitLower);
             foreach (var keyValuePair in mediationDict)
                 if (splitLower.Contains(keyValuePair.Key))
                     return keyValuePair.Value;
