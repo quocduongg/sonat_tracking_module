@@ -45,13 +45,10 @@ namespace Sonat
             {
                 case NetworkReachability.NotReachable:
                     return network_connect_type.none;
-                    break;
                 case NetworkReachability.ReachableViaCarrierDataNetwork:
                     return network_connect_type.mobile;
-                    break;
                 case NetworkReachability.ReachableViaLocalAreaNetwork:
                     return network_connect_type.wifi;
-                    break;
                 default:
                     return network_connect_type.other;
             }
