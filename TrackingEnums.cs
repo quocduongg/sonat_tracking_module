@@ -25,7 +25,8 @@ public enum EventNameEnum
     click_icon_shortcut,
     af_purchase,
     click_shop,
-    paid_ad_impression
+    paid_ad_impression,
+    cross_pro
 }
 
 public enum EventNameEnumForAf

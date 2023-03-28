@@ -302,6 +302,16 @@ namespace Sonat
             return parameters;
         }
     }
+    public class SonatLogCrossPromotion : BaseSonatAnalyticLog
+    {
+        public override string EventName => EventNameEnum.cross_pro.ToString();
+
+        protected override List<LogParameter> GetParameters()
+        {
+            List<LogParameter> parameters = new List<LogParameter>();
+            return parameters;
+        }
+    }
 
     [Serializable]
     public class SonatLogShowInterstitial : BaseSonatAnalyticLog

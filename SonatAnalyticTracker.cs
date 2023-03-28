@@ -16,6 +16,18 @@ namespace Sonat
     
     public static class SonatTrackingHelper
     {
+        public static void CrossAppPromotionClick(string appId,string campaign,Dictionary<string,string> parameters,MonoBehaviour go)
+        {
+            AppsFlyer.attributeAndOpenStore(appId,campaign,parameters,go);
+            Debug.Log("AppsFlyer.attributeAndOpenStore(appId,campaign,parameters,go)");
+        }
+
+        public static void CrossAppPromotionImpression(string promotedAppID, string campaign,Dictionary<string,string> parameters)
+        {
+            AppsFlyer.recordCrossPromoteImpression(promotedAppID,campaign, parameters);
+    //        Debug.Log("AppsFlyer.recordCrossPromoteImpression(appId,campaign,parameters,go)");
+        }
+        
         private static string GetDefault(AdsPlatform platform)
         {
             switch (platform)
