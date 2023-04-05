@@ -205,7 +205,7 @@ namespace Sonat
                 listParameters.Add(new LogParameter(nameof(network_connect_type), GetConnectionType().ToString()));
                 if (_extra != null)
                 {
-                    listParameters.AddRange(GetParameters());
+                    listParameters.AddRange(_extra);
                     FirebaseAnalytics.LogEvent(EventName, listParameters.Select(x => x.Param).ToArray());
                 }
                 else
