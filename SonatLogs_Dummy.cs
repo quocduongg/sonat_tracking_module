@@ -74,6 +74,19 @@ namespace Sonat
         public string fb_instance_id;
         
     }
+    
+    [Serializable]
+    public class SonatLogCustom: BaseSonatAnalyticLog
+    {
+        public override string EventName => _eventName;
+
+        private string _eventName;
+
+        public SonatLogCustom(string eventName)
+        {
+            _eventName = eventName;
+        }
+    }
 
     [Serializable]
     public class SonatLogLevelEnd : BaseSonatAnalyticLog
