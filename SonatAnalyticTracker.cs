@@ -199,6 +199,9 @@ namespace Sonat
 
         public void Post(bool logAf = false)
         {
+            #if UNITY_EDITOR
+            UIDebugLog.Log(EventName);
+            #endif
             var listParameters = GetParameters();
             if (SonatAnalyticTracker.FirebaseReady)
             {
