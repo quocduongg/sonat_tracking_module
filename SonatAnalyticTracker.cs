@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 using UnityEngine;
@@ -103,7 +104,20 @@ namespace Sonat
         public static string InterstitialLogName;
         public static bool FirebaseReady { get; set; }
 
-        
+        public static float sn_ltv_iaa
+        {
+            get => PlayerPrefs.GetFloat(nameof(sn_ltv_iaa));
+            set
+            {
+               var last = PlayerPrefs.GetFloat(nameof(sn_ltv_iaa));
+               if (Math.Abs(last - value) > 0.0001f)
+               {
+                   Kernel.Resolve<FireBaseController>().SetUserProperty(nameof(sn_ltv_iaa),value.ToString(CultureInfo.InvariantCulture));
+                   PlayerPrefs.SetFloat(nameof(sn_ltv_iaa),value);
+               }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -118,6 +132,7 @@ namespace Sonat
         {
             LogFirebaseRevenue(platform,adapter,revenue,precision,adType.ToString(),fb_instance_id,placement,currencyCode);
             LogAppsFlyerAdRevenue(platform,adapter,revenue,adType.ToString(),fb_instance_id,placement,currencyCode);
+            sn_ltv_iaa += (float)revenue;
         }
         
         /// <summary>
