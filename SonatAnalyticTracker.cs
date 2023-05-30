@@ -212,14 +212,14 @@ namespace Sonat
             return this;
         }
 
-        public void Post(bool logAf = false)
+        public virtual void Post(bool logAf = false)
         {
             #if UNITY_EDITOR
             UIDebugLog.Log(EventName);
             #endif
-            var listParameters = GetParameters();
             if (SonatAnalyticTracker.FirebaseReady)
             {
+                var listParameters = GetParameters();
                 listParameters.Add(new LogParameter(nameof(network_connect_type), GetConnectionType().ToString()));
                 if (_extra != null)
                 {
@@ -228,17 +228,20 @@ namespace Sonat
                 }
                 else
                     FirebaseAnalytics.LogEvent(EventName, listParameters.Select(x => x.Param).ToArray());
+                
+                if (logAf)
+                {
+                
+                    var dict = new Dictionary<string, string>();
+                    foreach (var parameter in listParameters)
+                        dict.Add(parameter.stringKey, parameter.stringValue);
+                    AppsFlyer.sendEvent(EventName, dict);
+                }
             }
             else
                 Debug.Log("Firebase not ready : SonatAnalyticTracker.FirebaseReady");
 
-            if (logAf)
-            {
-                var dict = new Dictionary<string, string>();
-                foreach (var parameter in listParameters)
-                    dict.Add(parameter.stringKey, parameter.stringValue);
-                AppsFlyer.sendEvent(EventName, dict);
-            }
+          
         }
 
         private network_connect_type GetConnectionType()

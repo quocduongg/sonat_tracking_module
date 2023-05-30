@@ -359,6 +359,8 @@ namespace Sonat
     [Serializable]
     public class SonatPaidAdClick : BaseSonatAnalyticLog
     {
+        
+      
         public override string EventName =>  EventNameEnum.paid_ad_click.ToString();
         public AdTypeLog ad_format;
         public string ad_placement ;
@@ -372,6 +374,7 @@ namespace Sonat
             parameters.Add(new LogParameter(ParameterEnum.fb_instance_id.ToString(), fb_instance_id));
             return parameters;
         }
+        
     }
     
     [Serializable]
@@ -389,6 +392,7 @@ namespace Sonat
     }
 
 
+    
     [Serializable]
     public class SonatLogShowRate : BaseSonatAnalyticLog
     {
