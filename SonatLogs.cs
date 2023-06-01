@@ -20,8 +20,11 @@ namespace Sonat
 
         protected override List<LogParameter> GetParameters()
         {
-            if(setUserProperty)
+            if (setUserProperty)
+            {
                 FirebaseAnalytics.SetUserProperty(UserPropertyName.level.ToString(), level);
+                FirebaseAnalytics.SetUserProperty(UserPropertyName.mode.ToString(), mode);
+            }
             List<LogParameter> parameters = new List<LogParameter>();
             parameters.Add(new LogParameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))

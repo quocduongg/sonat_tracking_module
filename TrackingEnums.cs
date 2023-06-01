@@ -52,7 +52,8 @@ public enum ParameterEnumForAf
 public enum UserPropertyName
 {
     last_screen,
-    level
+    level,
+    mode
 }
 
 public enum ParameterValue
