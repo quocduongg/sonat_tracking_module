@@ -15,7 +15,7 @@ namespace Sonat
         public override string EventName => EventNameEnum.level_start.ToString();
 
         public string level;
-        public string mode;
+        public string mode = "classic";
         public bool setUserProperty = true;
 
         protected override List<LogParameter> GetParameters()
@@ -30,6 +30,37 @@ namespace Sonat
             if (!string.IsNullOrEmpty(mode))
                 parameters.Add(new LogParameter(ParameterEnum.mode.ToString(), mode));
             return parameters;
+        }
+
+
+        public override void Post(bool logAf = false)
+        {
+            base.Post(logAf);
+            if (mode == "classic")
+                foreach (var i in LevelLog)
+                    if (level == i.ToString())
+                        if (TryLogIaaIap(i))
+                            break;
+        }
+
+        private static readonly int[] LevelLog = {4, 6, 10, 15, 20, 30, 40, 50};
+
+        private bool TryLogIaaIap(int levelLog)
+        {
+            if (PlayerPrefs.GetInt("log_iaa_iap_level_" + levelLog) == 0)
+            {
+                PlayerPrefs.SetInt("log_iaa_iap_level_" + levelLog, 1);
+                var dict = new Dictionary<string, string>();
+                dict.Add("event_revenue", SonatAnalyticTracker.sn_ltv_iaa.ToString());
+                AppsFlyer.sendEvent("iaa_start_level_" + levelLog.ToString("D4"), dict);
+
+                var dict2 = new Dictionary<string, string>();
+                dict.Add("event_revenue", BasePurchaser.sn_ltv_iap.ToString());
+                AppsFlyer.sendEvent("iap_start_level_" + levelLog.ToString("D4"), dict2);
+                return true;
+            }
+
+            return false;
         }
     }
 
