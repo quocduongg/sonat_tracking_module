@@ -55,7 +55,7 @@ namespace Sonat
                 AppsFlyer.sendEvent("iaa_start_level_" + levelLog.ToString("D4"), dict);
 
                 var dict2 = new Dictionary<string, string>();
-                dict.Add("event_revenue", BasePurchaser.sn_ltv_iap.ToString());
+                dict2.Add("event_revenue", BasePurchaser.sn_ltv_iap.ToString());
                 AppsFlyer.sendEvent("iap_start_level_" + levelLog.ToString("D4"), dict2);
                 return true;
             }
