@@ -252,6 +252,8 @@ namespace Sonat
         public string placement;
         public int level;
         public string mode;
+        public string item_type;
+        public string item_id;
     }
 
     [Serializable]

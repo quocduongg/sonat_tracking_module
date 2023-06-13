@@ -6,6 +6,20 @@ using System.Linq;
 
 using UnityEngine;
 
+#if dummy_log
+
+public static class SonatTrackingHelper
+{
+
+
+    public static void TryToPostQueues()
+    {
+       
+    }
+}
+
+#endif
+
 #if !dummy_log
 using AppsFlyerSDK;
 using Firebase.Analytics;
