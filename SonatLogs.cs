@@ -377,6 +377,8 @@ namespace Sonat
         public string placement;
         public int level;
         public string mode;
+        public string item_type;
+        public string item_id;
 
         protected override List<LogParameter> GetParameters()
         {
@@ -386,6 +388,10 @@ namespace Sonat
                 parameters.Add(new LogParameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
                 parameters.Add(new LogParameter(ParameterEnum.mode.ToString(), mode));
+            if (!string.IsNullOrEmpty(item_type))
+                parameters.Add(new LogParameter(ParameterEnum.item_type.ToString(), item_type));
+            if (!string.IsNullOrEmpty(item_id))
+                parameters.Add(new LogParameter(ParameterEnum.item_id.ToString(), item_id));
             return parameters;
         }
     }
