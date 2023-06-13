@@ -17,6 +17,19 @@ namespace Sonat
     
     public static class SonatTrackingHelper
     {
+
+        public static readonly List<BaseSonatAnalyticLog> NotReadyQueues = new List<BaseSonatAnalyticLog>();
+
+        public static void TryToPostQueues()
+        {
+            if (SonatAnalyticTracker.FirebaseReady)
+            {
+                foreach (var log in NotReadyQueues)
+                    log.Post(log.PostAf);
+                NotReadyQueues.Clear();
+            }
+        }
+        
         public static void CrossAppPromotionClick(string appId,string campaign,Dictionary<string,string> parameters,MonoBehaviour go)
         {
             AppsFlyer.attributeAndOpenStore(appId,campaign,parameters,go);
@@ -203,6 +216,7 @@ namespace Sonat
         public abstract string EventName { get; }
 
 
+        public bool PostAf { get; set; }
         private LogParameter[] _extra;
         
 
@@ -239,9 +253,10 @@ namespace Sonat
                 }
             }
             else
-                Debug.Log("Firebase not ready : SonatAnalyticTracker.FirebaseReady");
-
-          
+            {
+                Debug.Log("Firebase not ready : SonatAnalyticTracker.FirebaseReady, pust to queued");
+                SonatTrackingHelper.NotReadyQueues.Add(this);
+            }
         }
 
         private network_connect_type GetConnectionType()

@@ -35,6 +35,7 @@ namespace Sonat
 
         public override void Post(bool logAf = false)
         {
+            PostAf = logAf;
             base.Post(logAf);
             if (mode == "classic")
                 foreach (var i in LevelLog)
