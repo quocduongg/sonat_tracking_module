@@ -20,13 +20,13 @@ namespace Sonat
 
         public static int UserPropertyLevel
         {
-          //  get => PlayerPrefs.GetInt("user_property_level");
-            set => PlayerPrefs.GetInt("user_property_level",value);
+            get => PlayerPrefs.GetInt("user_property_level");
+            set => PlayerPrefs.SetInt("user_property_level",value);
         }
     
         public static string UserPropertyMode
         {
-        //    get => PlayerPrefs.GetString("user_property_mode");
+            get => PlayerPrefs.GetString("user_property_mode");
             set => PlayerPrefs.SetString("user_property_mode","classic");
         }
         
@@ -45,7 +45,6 @@ namespace Sonat
                 {
                     Console.WriteLine(e);
                 }
-                
             }
             
             List<LogParameter> parameters = new List<LogParameter>();
