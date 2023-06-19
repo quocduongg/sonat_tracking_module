@@ -18,13 +18,36 @@ namespace Sonat
         public string mode = "classic";
         public bool setUserProperty = true;
 
+        public static int UserPropertyLevel
+        {
+          //  get => PlayerPrefs.GetInt("user_property_level");
+            set => PlayerPrefs.GetInt("user_property_level",value);
+        }
+    
+        public static string UserPropertyMode
+        {
+        //    get => PlayerPrefs.GetString("user_property_mode");
+            set => PlayerPrefs.SetString("user_property_mode","classic");
+        }
+        
         protected override List<LogParameter> GetParameters()
         {
             if (setUserProperty)
             {
                 FirebaseAnalytics.SetUserProperty(UserPropertyName.level.ToString(), level);
                 FirebaseAnalytics.SetUserProperty(UserPropertyName.mode.ToString(), mode);
+                try
+                {
+                    UserPropertyLevel = int.Parse(level);
+                    UserPropertyMode = mode;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                
             }
+            
             List<LogParameter> parameters = new List<LogParameter>();
             parameters.Add(new LogParameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
