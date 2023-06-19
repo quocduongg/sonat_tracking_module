@@ -11,14 +11,12 @@ namespace Sonat
         public static string InterstitialLogName;
         public static bool FirebaseReady { get; set; }
 
-      
+
         public static void LogRevenue(AdsPlatform platform, string adapter, double revenue, string precision,
-            AdTypeLog adType,string fb_instance_id,string placement, string currencyCode = "USD")
+            AdTypeLog adType, string fb_instance_id, string placement, string currencyCode = "USD")
         {
-          
         }
     }
-
 
 
     public abstract class BaseSonatAnalyticLog
@@ -35,7 +33,7 @@ namespace Sonat
             return this;
         }
 
-        public void Post()
+        public virtual void Post()
         {
         }
 
@@ -58,25 +56,53 @@ namespace Sonat
     [Serializable]
     public class SonatLogLevelStart : BaseSonatAnalyticLog
     {
+        public static int UserPropertyLevel
+        {
+            get => PlayerPrefs.GetInt("user_property_level");
+            set => PlayerPrefs.SetInt("user_property_level", value);
+        }
+
+        public static string UserPropertyMode
+        {
+            get => PlayerPrefs.GetString("user_property_mode");
+            set => PlayerPrefs.SetString("user_property_mode", "classic");
+        }
+
         public override string EventName => EventNameEnum.level_start.ToString();
 
         public string level;
         public string mode;
         public bool setUserProperty = true;
+
+        public override void Post()
+        {
+            base.Post();
+            if (setUserProperty)
+            {
+                try
+                {
+                    UserPropertyLevel = int.Parse(level);
+                    UserPropertyMode = mode;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
     }
-    
+
     [Serializable]
     public class SonatPaidAdClick : BaseSonatAnalyticLog
     {
-        public override string EventName =>  EventNameEnum.paid_ad_click.ToString();
+        public override string EventName => EventNameEnum.paid_ad_click.ToString();
         public AdTypeLog ad_format;
-        public string ad_placement ;
+        public string ad_placement;
         public string fb_instance_id;
-        
     }
-    
+
     [Serializable]
-    public class SonatLogCustom: BaseSonatAnalyticLog
+    public class SonatLogCustom : BaseSonatAnalyticLog
     {
         public override string EventName => _eventName;
 
@@ -302,7 +328,7 @@ namespace Sonat
         protected override List<Sonat.LogParameter> GetParameters()
         {
             List<Sonat.LogParameter> parameters = new List<Sonat.LogParameter>();
-          //  parameters.Add(new Parameter(ParameterEnum.shortcut.ToString(), shortcut.ToString()));
+            //  parameters.Add(new Parameter(ParameterEnum.shortcut.ToString(), shortcut.ToString()));
             return parameters;
         }
     }
