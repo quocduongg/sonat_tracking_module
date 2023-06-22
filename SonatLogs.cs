@@ -67,18 +67,17 @@ namespace Sonat
         }
 
         private static readonly int[] LevelLog = {4, 6, 10, 15, 20, 30, 40, 50};
-
         private bool TryLogIaaIap(int levelLog)
         {
             if (PlayerPrefs.GetInt("log_iaa_iap_level_" + levelLog) == 0)
             {
                 PlayerPrefs.SetInt("log_iaa_iap_level_" + levelLog, 1);
                 var dict = new Dictionary<string, string>();
-                dict.Add("event_revenue", SonatAnalyticTracker.sn_ltv_iaa.ToString());
+                dict.Add("af_revenue", SonatAnalyticTracker.sn_ltv_iaa.ToString());
                 AppsFlyer.sendEvent("iaa_start_level_" + levelLog.ToString("D4"), dict);
 
                 var dict2 = new Dictionary<string, string>();
-                dict2.Add("event_revenue", BasePurchaser.sn_ltv_iap.ToString());
+                dict2.Add("af_revenue", BasePurchaser.sn_ltv_iap.ToString());
                 AppsFlyer.sendEvent("iap_start_level_" + levelLog.ToString("D4"), dict2);
                 return true;
             }
