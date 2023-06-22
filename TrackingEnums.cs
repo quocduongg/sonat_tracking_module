@@ -101,8 +101,8 @@ public enum ParameterEnum
     ad_placement,
     ad_source,
     ad_platform,
-    iaa_revenue,
-    iap_revenue,
+    sn_ltv_iaa,
+    sn_ltv_iap,
 }
 
 public enum AdsPlatform

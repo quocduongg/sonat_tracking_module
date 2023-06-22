@@ -57,8 +57,8 @@ namespace Sonat
                     if (level == i.ToString())
                         if (TryLogIaaIap(i))
                         {
-                            parameters.Add(new LogParameter(ParameterEnum.iaa_revenue.ToString(), SonatAnalyticTracker.sn_ltv_iaa));
-                            parameters.Add(new LogParameter(ParameterEnum.iap_revenue.ToString(), BasePurchaser.sn_ltv_iap));
+                            parameters.Add(new LogParameter(ParameterEnum.sn_ltv_iaa.ToString(), SonatAnalyticTracker.sn_ltv_iaa));
+                            parameters.Add(new LogParameter(ParameterEnum.sn_ltv_iap.ToString(), BasePurchaser.sn_ltv_iap));
                             break;
                         }
             
