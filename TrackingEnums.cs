@@ -100,7 +100,9 @@ public enum ParameterEnum
     virtual_currency_name,
     ad_placement,
     ad_source,
-    ad_platform
+    ad_platform,
+    iaa_revenue,
+    iap_revenue,
 }
 
 public enum AdsPlatform

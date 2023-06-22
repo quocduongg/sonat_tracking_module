@@ -51,6 +51,17 @@ namespace Sonat
             parameters.Add(new LogParameter(ParameterEnum.level.ToString(), level));
             if (!string.IsNullOrEmpty(mode))
                 parameters.Add(new LogParameter(ParameterEnum.mode.ToString(), mode));
+            
+            if (mode == "classic")
+                foreach (var i in LevelLog)
+                    if (level == i.ToString())
+                        if (TryLogIaaIap(i))
+                        {
+                            parameters.Add(new LogParameter(ParameterEnum.iaa_revenue.ToString(), SonatAnalyticTracker.sn_ltv_iaa));
+                            parameters.Add(new LogParameter(ParameterEnum.iap_revenue.ToString(), BasePurchaser.sn_ltv_iap));
+                            break;
+                        }
+            
             return parameters;
         }
 
@@ -59,11 +70,7 @@ namespace Sonat
         {
             PostAf = logAf;
             base.Post(logAf);
-            if (mode == "classic")
-                foreach (var i in LevelLog)
-                    if (level == i.ToString())
-                        if (TryLogIaaIap(i))
-                            break;
+        
         }
 
         private static readonly int[] LevelLog = {4, 6, 10, 15, 20, 30, 40, 50};
